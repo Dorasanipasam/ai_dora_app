@@ -1,0 +1,31 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>DORA</title>
+    <style>
+      body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+      input, button { padding: 10px; width: 100%; margin-top: 10px; }
+      .answer-box { background: white; padding: 20px; margin-top: 20px; border-radius: 10px; }
+    </style>
+  </head>
+  <body>
+    <h2>Hi There , I'm DORA : ASK Anything (Live Internet + Wikipedia AI) 🌐📚</h2>
+    <input type="text" id="question" placeholder="Ask your question here..." />
+    <button onclick="askQuestion()">Ask</button>
+    <div class="answer-box" id="answer"></div>
+
+    <script>
+      async function askQuestion() {
+        const q = document.getElementById('question').value;
+        const res = await fetch('/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q })
+        });
+        const data = await res.json();
+        document.getElementById('answer').innerText = data.answer;
+      }
+    </script>
+  </body>
+  </html>
